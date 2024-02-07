@@ -61,6 +61,7 @@ namespace SortierAlgorithmen_Abgabe
 
         public static void SortSelectedOrder(string selectedAlgorithm, string order, int[] sequence)
         {
+            Console.Clear();
             Console.WriteLine($"Selecting {order.ToLower()} order for {selectedAlgorithm}...");
             Console.WriteLine($"Original sequence:");
             PrintArray(sequence);
@@ -69,15 +70,13 @@ namespace SortierAlgorithmen_Abgabe
             switch (order.ToLower())
             {
                 case "ascending":
-                    // Aufruf der aufsteigenden Sortiermethode
                     SortAlgorithmStepByStep(selectedAlgorithm, sequence, ascending: true);
                     break;
                 case "descending":
-                    // Aufruf der absteigenden Sortiermethode
                     SortAlgorithmStepByStep(selectedAlgorithm, sequence, ascending: false);
                     break;
                 case "zigzag":
-                    // Implementierung der Zigzag-Sortierlogik hier
+                    ZigzagSort(sequence);
                     break;
             }
 
@@ -99,13 +98,8 @@ namespace SortierAlgorithmen_Abgabe
             int[] tempArray = new int[array.Length];
             array.CopyTo(tempArray, 0);
 
-            // Hier erfolgt die Ausgabe des unsortierten Arrays
             Console.WriteLine("Unsorted array: " + string.Join(", ", tempArray));
 
-            // Aufruf des entsprechenden Sortieralgorithmus
-            // Hier kannst du die gewünschte Sortiermethode aufrufen, z.B. Selectionsort.Sort(tempArray);
-            // Stelle sicher, dass die Methode den übergebenen Array sortiert
-            // Hier erfolgt die Ausgabe des sortierten Arrays
             Console.WriteLine("Sorted array: " + string.Join(", ", tempArray));
         }
 
@@ -165,6 +159,53 @@ namespace SortierAlgorithmen_Abgabe
                     Console.WriteLine("Invalid algorithm selected.");
                     break;
             }
+        }
+
+        public static void ZigzagSort(int[] sequence)
+        {
+            Array.Sort(sequence);
+            int left = 0, right = sequence.Length - 1;
+            int[] result = new int[sequence.Length];
+            int index = 0;
+
+            while (left <= right)
+            {
+                result[index++] = sequence[right--];
+                if (left <= right)
+                {
+                    result[index++] = sequence[left++];
+                }
+            }
+
+            result.CopyTo(sequence, 0);
+        }
+
+        public static void PrintZigzag(int[] _numbers)
+        {
+            int[] zigzagNumbers = new int[_numbers.Length];
+
+            int left = 0;
+            int right = _numbers.Length - 1;
+            bool isLeftTurn = true;
+
+            for (int i = 0; i < _numbers.Length; i++)
+            {
+                if (isLeftTurn)
+                {
+                    zigzagNumbers[i] = _numbers[right];
+                    right--;
+                }
+                else
+                {
+                    zigzagNumbers[i] = _numbers[left];
+                    left++;
+                }
+
+                isLeftTurn = !isLeftTurn;
+            }
+
+            Console.WriteLine("Sorted in zigzag:");
+            Console.WriteLine(string.Join(" ", zigzagNumbers));
         }
     }
 }

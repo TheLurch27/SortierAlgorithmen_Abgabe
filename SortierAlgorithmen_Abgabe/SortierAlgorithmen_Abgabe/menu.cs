@@ -66,13 +66,13 @@ namespace SortierAlgorithmen_Abgabe
             do
             {
                 Console.Clear();
-                Console.WriteLine("Select a sorting algorithm:");
                 for (int i = 0; i < sortMenuOptions.Length; i++)
                 {
                     if (i == selectedOption)
                     {
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine(sortMenuOptions[i]);
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
@@ -115,6 +115,7 @@ namespace SortierAlgorithmen_Abgabe
                     {
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine(orderMenuOptions[i]);
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
